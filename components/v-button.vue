@@ -1,7 +1,7 @@
 <template lang="pug">
   .button(@click="handleClick")
-    svg-sprite(:icon="icon")
-    .button-text {{ btnText }}
+    svg-sprite(v-if="icon" :icon="icon")
+    .button-text(v-if="btnText") {{ btnText }}
 </template>
 
 <script>
@@ -9,12 +9,10 @@ export default {
   props: {
     btnText: {
       type: String,
-      required: true,
-      default: 'Button'
+      default: ''
     },
     icon: {
       type: String,
-      required: true,
       default: ''
     }
   },
