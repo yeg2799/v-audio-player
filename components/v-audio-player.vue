@@ -7,7 +7,7 @@
       v-button(@clicked="!isPlay && !autoplay ? play() : pause()" :icon="!isPlay && !autoplay ? 'play':'pause'" )
       v-button(icon="forward")
       v-button(icon="volume" @clicked="toggleMute()")
-    .v-audio-
+    .v-audio-bottom
       span(v-if="currentTime") {{ currentTime }}
       input(type="range" min="0" :max="maxRange" value="0" step="1" @input="setCurrentTime($event.target.value)")
       span(v-if="duration") {{ duration }}
@@ -45,8 +45,10 @@ export default {
     const audio = ref(null);
     const isPlay = ref(false);
     const isOpenVolume = ref(false);
-    const currentTime = ref(0);
+    const currentTime = ref('00:00');
+    const duration = ref(0);
     const maxRange = ref(0);
+
     const play = () => {
       audio.value.play();
       isPlay.value = true;
@@ -55,19 +57,18 @@ export default {
       audio.value.pause();
       isPlay.value = false;
     }
-    const duration = ref(0);
+
     const setCurrentTime = (time) => {
       audio.value.currentTime = time;
-
-      if (time > 60) {
-        let minute = Math.floor(time / 60);
-        let second = time % 60;
+      let minute = Math.floor(time / 60);
+      let second = time % 60;
+      if (time >= 60) {
         if (second < 10) {
           second = '0' + second;
         }
-        currentTime.value = minute + ':' + second;
+        currentTime.value = minute + ':' + second.toFixed(0);
       } else {
-        currentTime.value = time;
+        currentTime.value = '00:' + second.toFixed(0);
       }
 
     }
@@ -102,6 +103,15 @@ export default {
         isPlay.value = false;
       });
     });
+
+    setInterval(() => {
+      if (isPlay.value === true) {
+        setCurrentTime(audio.value.currentTime);
+      }
+    }, 1000);
+
+
+
 
     return {
       isPlay,
@@ -141,6 +151,13 @@ export default {
     background-color: #fafafa;
     .button {
       margin: .5rem;
+    }
+  }
+  .v-audio-bottom {
+    display: inline-flex;
+    align-items: center;
+    input {
+      margin: 0 10px;
     }
   }
   input[type=range]{
