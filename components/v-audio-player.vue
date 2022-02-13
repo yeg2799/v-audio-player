@@ -9,7 +9,7 @@
       v-button(icon="volume" @clicked="toggleMute()")
     .v-audio-
       span(v-if="currentTime") {{ currentTime }}
-      input(type="range" min="0" max="500" value="0" step="1" @input="setCurrentTime($event.target.value)")
+      input(type="range" min="0" :max="maxRange" value="0" step="1" @input="setCurrentTime($event.target.value)")
       span(v-if="duration") {{ duration }}
     audio(ref="audio" :src="source" :muted="muted" :autoplay="autoplay")
     input(v-if="isOpenVolume" type="range" orient="vertical" min="0" max="100" value="0" step="1" @change="handleVolumeChange")
@@ -46,6 +46,7 @@ export default {
     const isPlay = ref(false);
     const isOpenVolume = ref(false);
     const currentTime = ref(0);
+    const maxRange = ref(0);
     const play = () => {
       audio.value.play();
       isPlay.value = true;
@@ -55,36 +56,41 @@ export default {
       isPlay.value = false;
     }
     const duration = computed(() => {
-        // let secs = document.getElementsByTagName('audio')[0].duration;
-        // var hr  = Math.floor(secs / 3600);
-        // var min = Math.floor((secs - (hr * 3600))/60);
-        // var sec = Math.floor(secs - (hr * 3600) -  (min * 60));
+        let secs = document.getElementsByTagName('audio')[0].duration;
+        maxRange.value = secs;
+        var hr  = Math.floor(secs / 3600);
+        var min = Math.floor((secs - (hr * 3600))/60);
+        var sec = Math.floor(secs - (hr * 3600) -  (min * 60));
 
-        // if (min < 10){
-        //   min = "0" + min;
-        // }
-        // if (sec < 10){
-        //   sec  = "0" + sec;
-        // }
-
-        // return min + ':' + sec;
+        if (min < 10){
+          min = "0" + min;
+        }
+        if (sec < 10){
+          sec  = "0" + sec;
+        }
+        return min + ':' + sec;
         return '';
     });
     const setCurrentTime = (time) => {
       audio.value.currentTime = time;
-      console.log(audio);
+
       if (time > 60) {
-        currentTime.value = (time / 60).toFixed(2);
+        let minute = Math.floor(time / 60);
+        let second = time % 60;
+        if (second < 10) {
+          second = '0' + second;
+        }
+        currentTime.value = minute + ':' + second;
       } else {
         currentTime.value = time;
       }
 
     }
     const toggleMute = () => {
-      audio.value.muted = !audio.value.muted;
       isOpenVolume.value = !isOpenVolume.value;
     }
     const handleVolumeChange = (e) => {
+      audio.value.muted = false;
       audio.value.volume = e.target.value / 100;
     }
     const mutedVolume = () => {
@@ -103,6 +109,7 @@ export default {
       mutedVolume,
       currentTime,
       setCurrentTime,
+      maxRange,
     }
   }
 }
