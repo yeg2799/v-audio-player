@@ -1,6 +1,6 @@
 <template lang="pug">
   .main-IndexPage
-    v-audio-player
+    v-audio-player(source="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3")
 </template>
 
 <script>
