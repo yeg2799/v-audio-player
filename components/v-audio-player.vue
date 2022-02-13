@@ -7,7 +7,8 @@
       v-button(icon="forward")
       v-button(icon="volume" @clicked="toggleMute()")
     .v-audio-
-      input(type="range" min="0" :max="duration" value="0" step="1")
+      span(v-if="currentTime") {{ currentTime }}
+      input(type="range" min="0" :max="duration" value="0" step="1" @input="setCurrentTime($event.target.value)")
       span(v-if="duration") {{ duration }}
     audio(ref="audio" :src="source" :muted="muted" :autoplay="autoplay")
     input(v-if="isOpenVolume" type="range" orient="vertical" min="0" max="100" value="0" step="1" @change="handleVolumeChange")
@@ -39,6 +40,7 @@ export default {
     const audio = ref(null);
     const isPlay = ref(false);
     const isOpenVolume = ref(false);
+    const currentTime = ref(0);
     const play = () => {
       audio.value.play();
       isPlay.value = true;
@@ -63,6 +65,16 @@ export default {
         // return min + ':' + sec;
         return '';
     });
+    const setCurrentTime = (time) => {
+      audio.value.currentTime = time;
+
+      if (time > 60) {
+        currentTime.value = (time / 60).toFixed(2);
+      } else {
+        currentTime.value = time;
+      }
+
+    }
     const toggleMute = () => {
       audio.value.muted = !audio.value.muted;
       isOpenVolume.value = !isOpenVolume.value;
@@ -84,6 +96,8 @@ export default {
       isOpenVolume,
       toggleMute,
       mutedVolume,
+      currentTime,
+      setCurrentTime,
     }
   }
 }
@@ -111,8 +125,10 @@ export default {
       margin: .5rem;
     }
   }
-  input[type=range][orient=vertical]
-{
+  input[type=range]{
+    width: 300px;
+  }
+  input[type=range][orient=vertical] {
     writing-mode: bt-lr; /* IE */
     -webkit-appearance: slider-vertical; /* Chromium */
     width: 8px;
