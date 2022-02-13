@@ -1,6 +1,6 @@
 <template lang="pug">
   .main-IndexPage
-    v-audio-player(source="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3")
+    v-audio-player(source="https://dinlehome.files.wordpress.com/2021/01/benfero.mp3" soundName="Ben Fero X Cash Flow - Üçe Beşe Bakamam")
 </template>
 
 <script>

@@ -1,5 +1,6 @@
 <template lang="pug">
   .v-audio-player
+    .sound-name {{ soundName }}
     .v-audio-buttons
       v-button(icon="muted" @clicked="mutedVolume()")
       v-button(icon="backward")
@@ -8,7 +9,7 @@
       v-button(icon="volume" @clicked="toggleMute()")
     .v-audio-
       span(v-if="currentTime") {{ currentTime }}
-      input(type="range" min="0" :max="duration" value="0" step="1" @input="setCurrentTime($event.target.value)")
+      input(type="range" min="0" max="500" value="0" step="1" @input="setCurrentTime($event.target.value)")
       span(v-if="duration") {{ duration }}
     audio(ref="audio" :src="source" :muted="muted" :autoplay="autoplay")
     input(v-if="isOpenVolume" type="range" orient="vertical" min="0" max="100" value="0" step="1" @change="handleVolumeChange")
@@ -34,6 +35,10 @@ export default {
     autoplay: {
       type: Boolean,
       default: false,
+    },
+    soundName: {
+      type: String,
+      default: '',
     },
   },
   setup() {
@@ -67,7 +72,7 @@ export default {
     });
     const setCurrentTime = (time) => {
       audio.value.currentTime = time;
-
+      console.log(audio);
       if (time > 60) {
         currentTime.value = (time / 60).toFixed(2);
       } else {
