@@ -22,6 +22,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/component.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -32,13 +33,16 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxtjs/composition-api/module',
-
+    '@nuxtjs/svg',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-
+    '@nuxtjs/svg-sprite'
   ],
+  svgSprite: {
+    input: '~/assets/icons/',
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
