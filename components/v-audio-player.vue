@@ -2,12 +2,12 @@
   .v-audio-player
     .v-audio-buttons
       v-button(icon="backward")
-      v-button(@clicked="!isPlay ? play() : pause()" :icon="!isPlay ? 'play':'pause'" )
+      v-button(@clicked="!isPlay && !autoplay ? play() : pause()" :icon="!isPlay && !autoplay ? 'play':'pause'" )
       v-button(icon="forward")
     .v-audio-
       input(type="range" id="cowbell" name="cowbell"  min="0" :max="duration" value="0" step="1")
       span(v-if="duration") {{ duration }}
-    audio(ref="audio" :src="source")
+    audio(ref="audio" :src="source" :muted="muted" :autoplay="autoplay")
 </template>
 
 <script>
@@ -23,6 +23,14 @@ export default {
       required: true,
       default: '',
     },
+    muted: {
+      type: Boolean,
+      default: false,
+    },
+    autoplay: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup() {
     const audio = ref(null);
@@ -36,19 +44,20 @@ export default {
       isPlay.value = false;
     }
     const duration = computed(() => {
-        let secs = document.getElementsByTagName('audio')[0].duration;
-        var hr  = Math.floor(secs / 3600);
-        var min = Math.floor((secs - (hr * 3600))/60);
-        var sec = Math.floor(secs - (hr * 3600) -  (min * 60));
+        // let secs = document.getElementsByTagName('audio')[0].duration;
+        // var hr  = Math.floor(secs / 3600);
+        // var min = Math.floor((secs - (hr * 3600))/60);
+        // var sec = Math.floor(secs - (hr * 3600) -  (min * 60));
 
-        if (min < 10){
-          min = "0" + min;
-        }
-        if (sec < 10){
-          sec  = "0" + sec;
-        }
+        // if (min < 10){
+        //   min = "0" + min;
+        // }
+        // if (sec < 10){
+        //   sec  = "0" + sec;
+        // }
 
-        return min + ':' + sec;
+        // return min + ':' + sec;
+        return '';
     });
 
     return {
