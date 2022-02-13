@@ -50,6 +50,7 @@ export default {
     const duration = ref(0);
     const maxRange = ref(0);
     const volumeRange = ref(100);
+
     const play = () => {
       audio.value.play();
       isPlay.value = true;
@@ -63,13 +64,17 @@ export default {
       audio.value.currentTime = time;
       let minute = Math.floor(time / 60);
       let second = time % 60;
-      if (time >= 60) {
-        if (second < 10) {
-          second = '0' + second;
-        }
-        currentTime.value = minute + ':' + second.toFixed(0);
+
+      if (second < 10) {
+        second = '0' + second.toFixed(0);
       } else {
-        currentTime.value = '00:' + second.toFixed(0);
+         second = second.toFixed(0);
+      }
+
+      if (time >= 60) {
+        currentTime.value = minute + ':' + second;
+      } else {
+        currentTime.value = '00:' + second;
       }
     }
     const toggleMute = () => {
@@ -111,13 +116,17 @@ export default {
         currentTimeRange.value = Math.floor(time).toString();
         let minute = Math.floor(time / 60);
         let second = time % 60;
-        if (time >= 60) {
-          if (second < 10) {
-            second = '0' + second;
-          }
-          currentTime.value = minute + ':' + second.toFixed(0);
+
+        if (second < 10) {
+          second = '0' + second.toFixed(0);
         } else {
-          currentTime.value = '00:' + second.toFixed(0);
+          second = second.toFixed(0);
+        }
+
+        if (time >= 60) {
+          currentTime.value = minute + ':' + second;
+        } else {
+          currentTime.value = '00:' + second;
         }
       }
     }, 1000);
