@@ -3,9 +3,9 @@
     .sound-name {{ soundName }}
     .v-audio-buttons
       v-button(icon="muted" @clicked="mutedVolume()")
-      v-button(icon="backward")
+      v-button(icon="backward" v-if="isMultiple")
       v-button(@clicked="!isPlay && !autoplay ? play() : pause()" :icon="!isPlay && !autoplay ? 'play':'pause'" )
-      v-button(icon="forward")
+      v-button(icon="forward" v-if="isMultiple")
       v-button(icon="volume" @clicked="toggleMute()")
     .v-audio-bottom
       span(v-if="currentTime") {{ currentTime }}
@@ -39,6 +39,10 @@ export default {
     soundName: {
       type: String,
       default: '',
+    },
+    isMultiple: {
+      type: Boolean,
+      default: false,
     },
   },
   setup() {
