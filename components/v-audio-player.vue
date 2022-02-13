@@ -9,7 +9,7 @@
       v-button(icon="volume" @clicked="toggleMute()")
     .v-audio-bottom
       span(v-if="currentTime") {{ currentTime }}
-      input(type="range" min="0" :max="maxRange" value="0" step="1" @input="setCurrentTime($event.target.value)")
+      input(type="range" min="0" :max="maxRange" :value="currentTimeRange" step="1" @input="setCurrentTime($event.target.value)")
       span(v-if="duration") {{ duration }}
     audio(ref="audio" :src="source" :muted="muted" :autoplay="autoplay" id="audio-player" preload="metadata")
     input(v-if="isOpenVolume" type="range" orient="vertical" min="0" max="100" :value="volumeRange" step="1" @change="handleVolumeChange")
@@ -46,11 +46,10 @@ export default {
     const isPlay = ref(false);
     const isOpenVolume = ref(false);
     const currentTime = ref('00:00');
-    const secCurrentTime = ref(0);
+    const currentTimeRange = ref(0);
     const duration = ref(0);
     const maxRange = ref(0);
     const volumeRange = ref(100);
-
     const play = () => {
       audio.value.play();
       isPlay.value = true;
@@ -109,7 +108,7 @@ export default {
     setInterval(() => {
       if (isPlay.value === true) {
         let time = audio.value.currentTime;
-        secCurrentTime.value = time;
+        currentTimeRange.value = Math.floor(time).toString();
         let minute = Math.floor(time / 60);
         let second = time % 60;
         if (time >= 60) {
@@ -138,7 +137,7 @@ export default {
       mutedVolume,
       volumeRange,
       currentTime,
-      secCurrentTime,
+      currentTimeRange,
       setCurrentTime,
       maxRange,
     }
