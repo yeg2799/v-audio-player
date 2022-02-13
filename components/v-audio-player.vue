@@ -11,12 +11,12 @@
       span(v-if="currentTime") {{ currentTime }}
       input(type="range" min="0" :max="maxRange" value="0" step="1" @input="setCurrentTime($event.target.value)")
       span(v-if="duration") {{ duration }}
-    audio(ref="audio" :src="source" :muted="muted" :autoplay="autoplay")
+    audio(ref="audio" :src="source" :muted="muted" :autoplay="autoplay" id="audio-player" preload="metadata")
     input(v-if="isOpenVolume" type="range" orient="vertical" min="0" max="100" value="0" step="1" @change="handleVolumeChange")
 </template>
 
 <script>
-import { computed, ref } from '@nuxtjs/composition-api';
+import { computed, onMounted, ref } from '@nuxtjs/composition-api';
 import VueButton from '@/components/v-button.vue';
 export default {
   components: {
@@ -55,22 +55,7 @@ export default {
       audio.value.pause();
       isPlay.value = false;
     }
-    const duration = computed(() => {
-        let secs = document.getElementsByTagName('audio')[0].duration;
-        maxRange.value = secs;
-        var hr  = Math.floor(secs / 3600);
-        var min = Math.floor((secs - (hr * 3600))/60);
-        var sec = Math.floor(secs - (hr * 3600) -  (min * 60));
-
-        if (min < 10){
-          min = "0" + min;
-        }
-        if (sec < 10){
-          sec  = "0" + sec;
-        }
-        return min + ':' + sec;
-        return '';
-    });
+    const duration = ref(0);
     const setCurrentTime = (time) => {
       audio.value.currentTime = time;
 
@@ -96,6 +81,27 @@ export default {
     const mutedVolume = () => {
       audio.value.muted = !audio.value.muted;
     }
+    onMounted(() => {
+      audio.value = document.getElementById('audio-player');
+      audio.value.addEventListener('loadedmetadata', () => {
+          let secs = audio.value.duration;
+          maxRange.value = secs;
+          var hr  = Math.floor(secs / 3600);
+          var min = Math.floor((secs - (hr * 3600))/60);
+          var sec = Math.floor(secs - (hr * 3600) -  (min * 60));
+
+          if (min < 10){
+            min = "0" + min;
+          }
+          if (sec < 10){
+            sec  = "0" + sec;
+          }
+          duration.value = min + ':' + sec;
+      });
+      audio.value.addEventListener('ended', () => {
+        isPlay.value = false;
+      });
+    });
 
     return {
       isPlay,
