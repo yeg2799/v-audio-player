@@ -1,17 +1,20 @@
 <template lang="pug">
   .v-audio-player
     .v-audio-buttons
+      v-button(icon="muted" @clicked="mutedVolume()")
       v-button(icon="backward")
       v-button(@clicked="!isPlay && !autoplay ? play() : pause()" :icon="!isPlay && !autoplay ? 'play':'pause'" )
       v-button(icon="forward")
+      v-button(icon="volume" @clicked="toggleMute()")
     .v-audio-
-      input(type="range" id="cowbell" name="cowbell"  min="0" :max="duration" value="0" step="1")
+      input(type="range" min="0" :max="duration" value="0" step="1")
       span(v-if="duration") {{ duration }}
     audio(ref="audio" :src="source" :muted="muted" :autoplay="autoplay")
+    input(v-if="isOpenVolume" type="range" orient="vertical" min="0" max="100" value="0" step="1" @change="handleVolumeChange")
 </template>
 
 <script>
-import { computed, nextTick, onMounted, ref } from '@nuxtjs/composition-api';
+import { computed, ref } from '@nuxtjs/composition-api';
 import VueButton from '@/components/v-button.vue';
 export default {
   components: {
@@ -35,6 +38,7 @@ export default {
   setup() {
     const audio = ref(null);
     const isPlay = ref(false);
+    const isOpenVolume = ref(false);
     const play = () => {
       audio.value.play();
       isPlay.value = true;
@@ -59,6 +63,16 @@ export default {
         // return min + ':' + sec;
         return '';
     });
+    const toggleMute = () => {
+      audio.value.muted = !audio.value.muted;
+      isOpenVolume.value = !isOpenVolume.value;
+    }
+    const handleVolumeChange = (e) => {
+      audio.value.volume = e.target.value / 100;
+    }
+    const mutedVolume = () => {
+      audio.value.muted = !audio.value.muted;
+    }
 
     return {
       isPlay,
@@ -66,6 +80,10 @@ export default {
       audio,
       pause,
       duration,
+      handleVolumeChange,
+      isOpenVolume,
+      toggleMute,
+      mutedVolume,
     }
   }
 }
@@ -93,4 +111,12 @@ export default {
       margin: .5rem;
     }
   }
+  input[type=range][orient=vertical]
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* Chromium */
+    width: 8px;
+    height: 175px;
+    padding: 0 5px;
+}
 </style>
