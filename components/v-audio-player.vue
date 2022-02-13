@@ -12,7 +12,7 @@
       input(type="range" min="0" :max="maxRange" value="0" step="1" @input="setCurrentTime($event.target.value)")
       span(v-if="duration") {{ duration }}
     audio(ref="audio" :src="source" :muted="muted" :autoplay="autoplay" id="audio-player" preload="metadata")
-    input(v-if="isOpenVolume" type="range" orient="vertical" min="0" max="100" value="0" step="1" @change="handleVolumeChange")
+    input(v-if="isOpenVolume" type="range" orient="vertical" min="0" max="100" :value="volumeRange" step="1" @change="handleVolumeChange")
 </template>
 
 <script>
@@ -46,8 +46,10 @@ export default {
     const isPlay = ref(false);
     const isOpenVolume = ref(false);
     const currentTime = ref('00:00');
+    const secCurrentTime = ref(0);
     const duration = ref(0);
     const maxRange = ref(0);
+    const volumeRange = ref(100);
 
     const play = () => {
       audio.value.play();
@@ -70,7 +72,6 @@ export default {
       } else {
         currentTime.value = '00:' + second.toFixed(0);
       }
-
     }
     const toggleMute = () => {
       isOpenVolume.value = !isOpenVolume.value;
@@ -78,6 +79,7 @@ export default {
     const handleVolumeChange = (e) => {
       audio.value.muted = false;
       audio.value.volume = e.target.value / 100;
+      volumeRange.value = e.target.value;
     }
     const mutedVolume = () => {
       audio.value.muted = !audio.value.muted;
@@ -106,7 +108,18 @@ export default {
 
     setInterval(() => {
       if (isPlay.value === true) {
-        setCurrentTime(audio.value.currentTime);
+        let time = audio.value.currentTime;
+        secCurrentTime.value = time;
+        let minute = Math.floor(time / 60);
+        let second = time % 60;
+        if (time >= 60) {
+          if (second < 10) {
+            second = '0' + second;
+          }
+          currentTime.value = minute + ':' + second.toFixed(0);
+        } else {
+          currentTime.value = '00:' + second.toFixed(0);
+        }
       }
     }, 1000);
 
@@ -123,7 +136,9 @@ export default {
       isOpenVolume,
       toggleMute,
       mutedVolume,
+      volumeRange,
       currentTime,
+      secCurrentTime,
       setCurrentTime,
       maxRange,
     }
