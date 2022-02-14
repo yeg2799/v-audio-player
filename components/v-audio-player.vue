@@ -69,11 +69,7 @@ export default {
     }
     const playList = (sound) => {
       audio.value.src = sound.source;
-      audio.value.play();
-      isPlay.value = true;
-      isOpenVolume.value = false;
-      volumeRange.value = 100;
-      audio.value.volume = 1;
+      play();
     }
     const pause = () => {
       audio.value.pause();
