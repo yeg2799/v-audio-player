@@ -1,7 +1,7 @@
 <template lang="pug">
   .v-audio-player
     .sound-name(v-if="soundName && !isMultiple") {{ soundName }}
-    v-player-list(v-if="isMultiple && soundList.length > 0" :soundList="soundList" @play="playSound")
+    v-player-list(v-if="isMultiple && soundList.length > 0" :soundList="soundList" @play="playList")
     .v-audio-buttons
       v-button(icon="muted" @clicked="mutedVolume()")
       v-button(icon="backward" v-if="isMultiple")
@@ -66,7 +66,7 @@ export default {
       audio.value.play();
       isPlay.value = true;
     }
-    const playSound = (sound) => {
+    const playList = (sound) => {
       audio.value.src = sound.source;
       audio.value.play();
       isPlay.value = true;
@@ -169,7 +169,7 @@ export default {
       currentTimeRange,
       setCurrentTime,
       maxRange,
-      playSound,
+      playList,
     }
   }
 }
@@ -181,9 +181,10 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50vh;
     background-color: #fafafa;
+    border: 1px solid #e0e0e0;
   }
   .v-audio-buttons {
     display: flex;
@@ -191,7 +192,6 @@ export default {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
     background-color: #fafafa;
     .button {
       margin: .5rem;
