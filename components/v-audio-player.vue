@@ -1,6 +1,7 @@
 <template lang="pug">
   .v-audio-player
-    .sound-name {{ soundName }}
+    .sound-name(v-if="soundName && !isMultiple") {{ soundName }}
+    v-player-list(v-if="isMultiple && soundList.length > 0" :soundList="soundList" @play="playSound")
     .v-audio-buttons
       v-button(icon="muted" @clicked="mutedVolume()")
       v-button(icon="backward" v-if="isMultiple")
@@ -18,9 +19,11 @@
 <script>
 import { computed, onMounted, ref } from '@nuxtjs/composition-api';
 import VueButton from '@/components/v-button.vue';
+import VuePlayerList from '@/components/v-player-list.vue';
 export default {
   components: {
     VueButton,
+    VuePlayerList,
   },
   props: {
     source: {
@@ -44,6 +47,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    soundList: {
+      type: Array,
+      default: () => [],
+    },
   },
   setup() {
     const audio = ref(null);
@@ -58,6 +65,15 @@ export default {
     const play = () => {
       audio.value.play();
       isPlay.value = true;
+    }
+    const playSound = (sound) => {
+      audio.value.src = sound.source;
+      audio.value.play();
+      isPlay.value = true;
+      isOpenVolume.value = false;
+      volumeRange.value = 100;
+      audio.value.volume = 1;
+      // soundName.value = sound.title;
     }
     const pause = () => {
       audio.value.pause();
@@ -153,6 +169,7 @@ export default {
       currentTimeRange,
       setCurrentTime,
       maxRange,
+      playSound,
     }
   }
 }
