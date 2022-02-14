@@ -1,10 +1,10 @@
 <template lang="pug">
   .main-page
     .audio-card
-      h2 with not list
+      //- h2 with not list
       v-audio-player(source="https://dinlehome.files.wordpress.com/2021/01/benfero.mp3" soundName="Ben Fero X Cash Flow - Üçe Beşe Bakamam")
     .audio-card
-      h2 with soundList
+      //- h2 with soundList
       v-audio-player(:source="soundList[0].source" isMultiple :soundList="soundList")
 </template>
 

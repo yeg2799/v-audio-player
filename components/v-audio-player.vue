@@ -1,19 +1,20 @@
 <template lang="pug">
   .v-audio-player
     .sound-name(v-if="soundName && !isMultiple") {{ soundName }}
-    v-player-list(v-if="isMultiple && soundList.length > 0" :soundList="soundList" :source="audio.src" @play="playList")
+    v-player-list(v-if="isMultiple && soundList.length > 0" :soundList="soundList" :source="audio ? audio.src : source" @play="playList")
     .v-audio-buttons
       v-button(icon="muted" @clicked="mutedVolume()")
       v-button(icon="backward" v-if="isMultiple" @clicked="backwardSound()")
       v-button(@clicked="!isPlay && !autoplay ? play() : pause()" :icon="!isPlay && !autoplay ? 'play':'pause'" )
       v-button(icon="forward" v-if="isMultiple" @clicked="forwardSound()")
-      v-button(icon="volume" @clicked="toggleMute()")
+      .volume-button
+        v-button(icon="volume" @clicked="toggleMute()")
+        input(v-if="isOpenVolume" type="range" orient="vertical" min="0" max="100" :value="volumeRange" step="1" @change="handleVolumeChange")
     .v-audio-bottom
       span(v-if="currentTime") {{ currentTime }}
       input(type="range" min="0" :max="maxRange" :value="currentTimeRange" step="1" @input="setCurrentTime($event.target.value)")
       span(v-if="duration") {{ duration }}
     audio(ref="audio" :src="source" :muted="muted" :autoplay="autoplay" id="audio-player" preload="metadata")
-    input(v-if="isOpenVolume" type="range" orient="vertical" min="0" max="100" :value="volumeRange" step="1" @change="handleVolumeChange")
 </template>
 
 <script>
@@ -222,11 +223,19 @@ export default {
   input[type=range]{
     width: 300px;
   }
+  .volume-button {
+    position: relative;
+
+  }
   input[type=range][orient=vertical] {
-    writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* Chromium */
-    width: 8px;
-    height: 175px;
-    padding: 0 5px;
-}
+      writing-mode: bt-lr; /* IE */
+      -webkit-appearance: slider-vertical; /* Chromium */
+      width: 8px;
+      height: 100px;
+      padding: 0 5px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+
 </style>
