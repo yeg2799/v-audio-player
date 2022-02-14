@@ -4,9 +4,9 @@
     v-player-list(v-if="isMultiple && soundList.length > 0" :soundList="soundList" @play="playList")
     .v-audio-buttons
       v-button(icon="muted" @clicked="mutedVolume()")
-      v-button(icon="backward" v-if="isMultiple")
+      v-button(icon="backward" v-if="isMultiple" @clicked="backwardSound()")
       v-button(@clicked="!isPlay && !autoplay ? play() : pause()" :icon="!isPlay && !autoplay ? 'play':'pause'" )
-      v-button(icon="forward" v-if="isMultiple")
+      v-button(icon="forward" v-if="isMultiple" @clicked="forwardSound()")
       v-button(icon="volume" @clicked="toggleMute()")
     .v-audio-bottom
       span(v-if="currentTime") {{ currentTime }}
@@ -52,7 +52,7 @@ export default {
       default: () => [],
     },
   },
-  setup() {
+  setup(props) {
     const audio = ref(null);
     const isPlay = ref(false);
     const isOpenVolume = ref(false);
@@ -73,11 +73,28 @@ export default {
       isOpenVolume.value = false;
       volumeRange.value = 100;
       audio.value.volume = 1;
-      // soundName.value = sound.title;
     }
     const pause = () => {
       audio.value.pause();
       isPlay.value = false;
+    }
+    const forwardSound = () => {
+      let index = props.soundList.findIndex(sound => sound.source === audio.value.src);
+      if (index < props.soundList.length - 1) {
+        index++;
+        playList(props.soundList[index]);
+      } else {
+        playList(props.soundList[0]);
+      }
+    }
+    const backwardSound = () => {
+      let index = props.soundList.findIndex(sound => sound.source === audio.value.src);
+      if (index > 0) {
+        index--;
+        playList(props.soundList[index]);
+      } else {
+        playList(props.soundList[props.soundList.length - 1]);
+      }
     }
 
     const setCurrentTime = (time) => {
@@ -170,6 +187,8 @@ export default {
       setCurrentTime,
       maxRange,
       playList,
+      forwardSound,
+      backwardSound,
     }
   }
 }
@@ -181,10 +200,6 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%;
-    height: 50vh;
-    background-color: #fafafa;
-    border: 1px solid #e0e0e0;
   }
   .v-audio-buttons {
     display: flex;

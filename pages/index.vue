@@ -1,11 +1,11 @@
 <template lang="pug">
-  .main-IndexPage
-    v-audio-player(source="https://dinlehome.files.wordpress.com/2021/01/benfero.mp3" soundName="Ben Fero X Cash Flow - Üçe Beşe Bakamam")
-    v-audio-player(source="https://dinlehome.files.wordpress.com/2021/01/benfero.mp3" soundName="Ben Fero X Cash Flow - Üçe Beşe Bakamam" isMultiple :soundList="soundList")
-    v-audio-player(source="https://dinlehome.files.wordpress.com/2021/01/benfero.mp3" soundName="Ben Fero X Cash Flow - Üçe Beşe Bakamam")
-    v-audio-player(source="https://dinlehome.files.wordpress.com/2021/01/benfero.mp3" soundName="Ben Fero X Cash Flow - Üçe Beşe Bakamam" isMultiple :soundList="soundList")
-    v-audio-player(source="https://dinlehome.files.wordpress.com/2021/01/benfero.mp3" soundName="Ben Fero X Cash Flow - Üçe Beşe Bakamam")
-    v-audio-player(source="https://dinlehome.files.wordpress.com/2021/01/benfero.mp3" soundName="Ben Fero X Cash Flow - Üçe Beşe Bakamam" isMultiple :soundList="soundList")
+  .main-page
+    .audio-card
+      h2 with not list
+      v-audio-player(source="https://dinlehome.files.wordpress.com/2021/01/benfero.mp3" soundName="Ben Fero X Cash Flow - Üçe Beşe Bakamam")
+    .audio-card
+      h2 with soundList
+      v-audio-player(:source="soundList[0].source" isMultiple :soundList="soundList")
 </template>
 
 <script>
@@ -45,9 +45,17 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .main-IndexPage {
-    padding-top: 20px;
+  .main-page {
     display: flex;
     flex-wrap: wrap;
+    .audio-card {
+      width: 50%;
+      padding-top: 20px;
+      background-color: #fafafa;
+      border: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 </style>
