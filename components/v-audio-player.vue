@@ -21,6 +21,7 @@
 import { computed, onMounted, ref } from '@nuxtjs/composition-api';
 import VueButton from '@/components/v-button.vue';
 import VuePlayerList from '@/components/v-player-list.vue';
+import usePlayer from '@/utils/usePlayer';
 export default {
   components: {
     VueButton,
@@ -62,37 +63,11 @@ export default {
     const duration = ref(0);
     const maxRange = ref(0);
     const volumeRange = ref(100);
+    const { play, pause, playList, forwardSound, backwardSound, mutedVolume, handleVolumeChange } = usePlayer(props, audio, isPlay, volumeRange);
 
-    const play = () => {
-      audio.value.play();
-      isPlay.value = true;
-    }
-    const playList = (sound) => {
-      audio.value.src = sound.source;
-      play();
-    }
-    const pause = () => {
-      audio.value.pause();
-      isPlay.value = false;
-    }
-    const forwardSound = () => {
-      let index = props.soundList.findIndex(sound => sound.source === audio.value.src);
-      if (index < props.soundList.length - 1) {
-        index++;
-        playList(props.soundList[index]);
-      } else {
-        playList(props.soundList[0]);
-      }
-    }
-    const backwardSound = () => {
-      let index = props.soundList.findIndex(sound => sound.source === audio.value.src);
-      if (index > 0) {
-        index--;
-        playList(props.soundList[index]);
-      } else {
-        playList(props.soundList[props.soundList.length - 1]);
-      }
-    }
+
+
+
 
     const setCurrentTime = (time) => {
       audio.value.currentTime = time;
@@ -111,17 +86,11 @@ export default {
         currentTime.value = '00:' + second;
       }
     }
+
     const toggleMute = () => {
       isOpenVolume.value = !isOpenVolume.value;
     }
-    const handleVolumeChange = (e) => {
-      audio.value.muted = false;
-      audio.value.volume = e.target.value / 100;
-      volumeRange.value = e.target.value;
-    }
-    const mutedVolume = () => {
-      audio.value.muted = !audio.value.muted;
-    }
+
     onMounted(() => {
       audio.value = document.getElementById('audio-player');
       audio.value.addEventListener('loadedmetadata', () => {

@@ -22,7 +22,6 @@ export default {
     const play = (sound) => {
       emit('play', sound);
     }
-    console.log();
     return {
       play,
     }
