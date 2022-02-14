@@ -1,6 +1,6 @@
 <template lang="pug">
   .v-player-list-wrapper
-    .v-player-list-item(v-for="(sound, index) in soundList" :key="index" @click="play(sound)")
+    .v-player-list-item(v-for="(sound, index) in soundList" :key="index" @click="play(sound)" :class="{ 'active': sound.source === source }")
       .v-player-list-item-icon
         svg-sprite(icon="music")
       .v-player-list-item-text {{ sound.title }}
@@ -13,11 +13,16 @@ export default {
       type: Array,
       default: () => [],
     },
+    source: {
+      type: String,
+      default: '',
+    },
   },
   setup(props, { emit }) {
     const play = (sound) => {
       emit('play', sound);
     }
+    console.log();
     return {
       play,
     }
@@ -55,6 +60,9 @@ export default {
       .v-player-list-item-text {
         margin: 0 10px;
       }
+    }
+    .v-player-list-item.active {
+      background-color: #ddd;
     }
   }
 </style>

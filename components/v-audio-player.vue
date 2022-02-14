@@ -1,7 +1,7 @@
 <template lang="pug">
   .v-audio-player
     .sound-name(v-if="soundName && !isMultiple") {{ soundName }}
-    v-player-list(v-if="isMultiple && soundList.length > 0" :soundList="soundList" @play="playList")
+    v-player-list(v-if="isMultiple && soundList.length > 0" :soundList="soundList" :source="audio.src" @play="playList")
     .v-audio-buttons
       v-button(icon="muted" @clicked="mutedVolume()")
       v-button(icon="backward" v-if="isMultiple" @clicked="backwardSound()")
