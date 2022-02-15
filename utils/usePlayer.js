@@ -1,5 +1,3 @@
-import { ref, reactive, useContext } from '@nuxtjs/composition-api';
-
 const usePlayer = (props, audio, isPlay, volumeRange) => {
   const play = () => {
     audio.value.play();

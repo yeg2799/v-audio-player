@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from '@nuxtjs/composition-api';
+import { onMounted, ref } from '@nuxtjs/composition-api';
 import VueButton from '@/components/v-button.vue';
 import VuePlayerList from '@/components/v-player-list.vue';
 import usePlayer from '@/utils/usePlayer';
@@ -64,10 +64,6 @@ export default {
     const maxRange = ref(0);
     const volumeRange = ref(100);
     const { play, pause, playList, forwardSound, backwardSound, mutedVolume, handleVolumeChange } = usePlayer(props, audio, isPlay, volumeRange);
-
-
-
-
 
     const setCurrentTime = (time) => {
       audio.value.currentTime = time;
