@@ -1,7 +1,9 @@
 <template lang="pug">
   .v-audio-player
+    .music-poster
+      img(src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a75a958c-cc34-4101-8337-a0796d7ccbd8/d714j5q-d6d042a4-94d4-49a4-a5fc-c384362342c9.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2E3NWE5NThjLWNjMzQtNDEwMS04MzM3LWEwNzk2ZDdjY2JkOFwvZDcxNGo1cS1kNmQwNDJhNC05NGQ0LTQ5YTQtYTVmYy1jMzg0MzYyMzQyYzkuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.ovSu8G2bukNO7Q9-fOkjCrZWpCRldQlLzj88xKDzcMs")
     .sound-name(v-if="soundName && !isMultiple") {{ soundName }}
-    v-player-list(v-if="isMultiple && soundList.length > 0" :soundList="soundList" :source="audio ? audio.src : source" @play="playList")
+    //- v-player-list(v-if="isMultiple && soundList.length > 0" :soundList="soundList" :source="audio ? audio.src : source" @play="playList")
     .v-audio-buttons
       v-button(icon="muted" @clicked="mutedVolume()")
       v-button(icon="backward" v-if="isMultiple" @clicked="backwardSound()")
@@ -169,7 +171,7 @@ export default {
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: #fafafa;
+    // background-color: #fafafa;
     .button {
       margin: .5rem;
     }
