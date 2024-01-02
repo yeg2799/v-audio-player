@@ -1,0 +1,146 @@
+{
+  "name": "vue-plugin-boilerplate",
+  "version": "0.0.1",
+  "description": "Boilerplate for vue 2&3 plugin development 🟩📦",
+  "keywords": [
+    "vue plugin",
+    "vue plugin boilerplate",
+    "vue plugin template",
+    "vue plugin starter"
+  ],
+  "author": "selimdoyranli",
+  "contributors": [
+    "selimdoyranli <selimdoyranli@gmail.com> (https://selimdoyranli.com)"
+  ],
+  "bugs": "selimdoyranli@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/selimdoyranli/vue-plugin-boilerplate"
+  },
+  "main": "dist/vue3/index.js",
+  "module": "dist/vue3/vue-plugin-boilerplate.mjs",
+  "browser": "dist/vue3/vue-plugin-boilerplate.global.js",
+  "unpkg": "dist/vue3/vue-plugin-boilerplate.global.js",
+  "exports": {
+    ".": {
+      "require": "./dist/vue3/vue-plugin-boilerplate.cjs",
+      "import": "./dist/vue3/index.js",
+      "browser": "./dist/vue3/vue-plugin-boilerplate.global.js",
+      "umd": "./dist/vue3/vue-plugin-boilerplate.umd.js",
+      "unpkg": "./dist/vue3/vue-plugin-boilerplate.global.js",
+      "module": "./dist/vue3/vue-plugin-boilerplate.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "meta",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build:vue3": "rimraf dist/vue3 && cross-env NODE_ENV=production VUE_VERSION=3 rollup --config build/rollup.config.js",
+    "build:vue2": "rimraf dist/vue2 && cross-env NODE_ENV=production VUE_VERSION=2 rollup --config build/rollup.config.js",
+    "build": "rimraf dist && yarn build:vue3 && yarn build:vue2",
+    "commit": "cz",
+    "changelog": "changelogen",
+    "lint:eslint": "eslint --ext .js,.ts,.json,.vue,.pug --ignore-path .gitignore --ignore-path .eslintignore .",
+    "lint:eslint:fix": "eslint --fix --ext .js,.ts,.json,.vue,.pug --ignore-path .gitignore --ignore-path .eslintignore .",
+    "lint:stylelint": "stylelint \"**/*.{css,sass,scss,less,stylus,vue}\" --ignore-path .stylelintignore",
+    "lint:stylelint:fix": "stylelint --fix \"**/*.{css,sass,scss,less,stylus,vue}\" --ignore-path .stylelintignore",
+    "prettier": "prettier --config ./.prettierrc.js --ignore-path ./.prettierignore --write \"**/*.{js,ts,json,css,scss,vue,html,pug}\" --end-of-line lf",
+    "type:check": "vue-tsc --noEmit"
+  },
+  "lint-staged": {
+    "*.{ts,js,vue}": [
+      "yarn lint:eslint",
+      "yarn prettier"
+    ],
+    "**/*.{css,sass,scss,less,stylus,vue}": [
+      "yarn lint:stylelint",
+      "yarn prettier"
+    ]
+  },
+  "dependencies": {
+    "vue-demi": "latest"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.7.1",
+    "vue": "^2.0.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-modules-umd": "^7.12.1",
+    "@babel/preset-env": "^7.12.10",
+    "@babel/preset-typescript": "^7.21.5",
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "@prettier/plugin-pug": "^2.4.1",
+    "@rollup/plugin-alias": "^3.1.1",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^24.1.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@types/node": "^18.13.0",
+    "@types/stylelint": "14.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.14.0",
+    "@vue/compiler-sfc": "^3.0.4",
+    "autoprefixer": "^10.1.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-plugin-rename-umd-globals": "^1.0.0",
+    "changelogen": "^0.5.3",
+    "commitizen": "^4.3.0",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.9.0",
+    "husky": "4.2.5",
+    "lint-staged": "^13.2.2",
+    "postcss": "^8.2.1",
+    "postcss-html": "^1.5.0",
+    "postcss-scss": "^4.0.6",
+    "prettier": "^2.8.4",
+    "pug": "^3.0.2",
+    "pug-plain-loader": "^1.1.0",
+    "rimraf": "^5.0.1",
+    "rollup": "^2.79.1",
+    "rollup-plugin-css-only": "2.0.0",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-scss": "^4.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "sass": "^1.64.1",
+    "sass-loader": "10.1.1",
+    "stylelint": "14.16.1",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-order": "^6.0.2",
+    "stylelint-scss": "^4.4.0",
+    "typescript": "^5.1.6",
+    "vue-eslint-parser": "^9.1.0",
+    "vue-eslint-parser-template-tokenizer-pug": "^0.4.10",
+    "vue-rollup-plugin-vue2": "npm:rollup-plugin-vue@^5.1.9",
+    "vue-rollup-plugin-vue3": "npm:rollup-plugin-vue@^6.0.0",
+    "vue-template-compiler": "^2.6.14",
+    "vue-tsc": "^1.8.6"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}
