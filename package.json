@@ -8,14 +8,14 @@
     "vue plugin template",
     "vue plugin starter"
   ],
-  "author": "selimdoyranli",
+  "author": "yeg2799",
   "contributors": [
-    "selimdoyranli <selimdoyranli@gmail.com> (https://selimdoyranli.com)"
+    "yeg2799 <yeg2799@gmail.com> (https://yeg2799.com)"
   ],
-  "bugs": "selimdoyranli@gmail.com",
+  "bugs": "yeg2799@gmail.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/selimdoyranli/vue-plugin-boilerplate"
+    "url": "https://github.com/yeg2799/vue-plugin-boilerplate"
   },
   "main": "dist/vue3/index.js",
   "module": "dist/vue3/vue-plugin-boilerplate.mjs",

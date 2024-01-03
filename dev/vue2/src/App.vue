@@ -1,21 +1,21 @@
 <template lang="pug">
 #app
-  PluginBoilerplate
+  VAudioPlayer
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
 // @ts-ignore
-import PluginBoilerplate from '../../../src/vue-plugin-boilerplate.vue'
+import { VAudioPlayer } from '../../../src/components/index'
 
 export default Vue.extend({
   components: {
-    PluginBoilerplate
+    VAudioPlayer
   }
 })
 </script>
 
 <style lang="scss">
-@import '../../../src/vue-plugin-boilerplate.scss';
+@import '../../../src/assets/style/scss/app.scss';
 </style>

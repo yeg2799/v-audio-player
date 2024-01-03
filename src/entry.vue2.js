@@ -1,11 +1,11 @@
 // Import vue component
-import component from './vue-plugin-boilerplate.vue'
+import component from './components/index.ts'
 
 // install function executed by Vue.use()
 const install = function installComponent(Vue) {
   if (install.installed) return
   install.installed = true
-  Vue.component('PluginBoilerplate', component)
+  Vue.component('VAudioPlayer', component)
 }
 
 // Create module definition for Vue.use()

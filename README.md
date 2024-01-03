@@ -14,13 +14,13 @@ Boilerplate for vue 2&3 plugin development 🟩📦
 </p>
 
 <p align="center">
-<a href="https://github.com/selimdoyranli/vue-plugin-boilerplate" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/selimdoyranli/vue-plugin-boilerplate?style=social"></a>
+<a href="https://github.com/yeg2799/vue-plugin-boilerplate" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/yeg2799/vue-plugin-boilerplate?style=social"></a>
 </p>
 
 <div align="center">
 <sub><b>Sponsorship 💖</b></sub><br>
-<sub><a href="https://github.com/sponsors/selimdoyranli">GitHub</a></sub><br>
-<sub><a href="https://buymeacoffee.com/selimdoyranli">Buy me a coffee</a></sub><br>
+<sub><a href="https://github.com/sponsors/yeg2799">GitHub</a></sub><br>
+<sub><a href="https://buymeacoffee.com/yeg2799">Buy me a coffee</a></sub><br>
 </div>
 
 ## Features
@@ -52,7 +52,7 @@ Boilerplate for vue 2&3 plugin development 🟩📦
 Clone this repo or create new repo from this template repo
 
 ```bash
-git clone https://github.com/selimdoyranli/vue-plugin-boilerplate.git
+git clone https://github.com/yeg2799/vue-plugin-boilerplate.git
 ```
 
 ## Development
@@ -146,13 +146,13 @@ yarn changelog
 You can sponsor me for the continuity of my projects:
 
 <p align="left">
-  <a href="https://github.com/sponsors/selimdoyranli">
-    <img src='https://img.shields.io/github/sponsors/selimdoyranli?style=for-the-badge&label=%E2%99%A5+Be+Sponsor&logo=GitHub'/>
+  <a href="https://github.com/sponsors/yeg2799">
+    <img src='https://img.shields.io/github/sponsors/yeg2799?style=for-the-badge&label=%E2%99%A5+Be+Sponsor&logo=GitHub'/>
   </a>
 </p>
 
 <p align="left">
-  <a href="https://buymeacoffee.com/selimdoyranli">
+  <a href="https://buymeacoffee.com/yeg2799">
     <img src='https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png'/>
   </a>
 </p>
@@ -161,7 +161,7 @@ You can sponsor me for the continuity of my projects:
 
 [MIT License](./LICENSE)
 
-Copyright (c) selimdoyranli <selimdoyranli@gmail.com>
+Copyright (c) yeg2799 <yeg2799@gmail.com>
 
 <!-- Badges -->
 [changelog-src]: https://img.shields.io/static/v1?label=%F0%9F%93%96&message=Release%20Notes%20|%20CHANGELOG&color=blue
