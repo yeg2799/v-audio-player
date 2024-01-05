@@ -1,4 +1,4 @@
-import { reactive } from 'vue-demi'
+import { reactive, computed } from 'vue-demi'
 
 export default () => {
   const state = reactive({
@@ -8,11 +8,16 @@ export default () => {
   //Methods
   const setAudioList = (audioList: []) => {
     state.audioList = audioList
-
-    console.log(audioList)
   }
 
+  //Readables
+  const audioList = computed(() => state.audioList)
+
   return {
+    //Readables
+    audioList,
+
+    //Methods
     setAudioList
   }
 }
