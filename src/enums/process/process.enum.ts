@@ -3,5 +3,6 @@ import { ProcessEnum } from './process.enum.types.ts'
 export default Object.freeze({
   PREV: ProcessEnum.PREV,
   NEXT: ProcessEnum.NEXT,
-  PLAY: ProcessEnum.PLAY
+  PLAY: ProcessEnum.PLAY,
+  PAUSE: ProcessEnum.PAUSE
 })

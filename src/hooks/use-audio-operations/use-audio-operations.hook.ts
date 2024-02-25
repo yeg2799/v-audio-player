@@ -1,32 +1,34 @@
 import { ref } from 'vue-demi'
+// import { useRoot } from '@/hooks/index.ts'
 
 export default () => {
-  const audio = ref(null);
+  // const { increaseActiveAudioIndex  } = inject('root')
+
+  const audioRef = ref(null);
   const isPlayingAudio = ref(false);
 
   //Methods
   const playAudio = () => {
-    if(audio.value) {
-      audio.value.play()
+    console.log(audioRef.value)
+    if(audioRef.value) {
+      audioRef.value.play()
       isPlayingAudio.value = true;
     }
   }
 
   const pauseAudio = () => {
-    if(audio.value) {
-      audio.value.pause()
+    if(audioRef.value) {
+      audioRef.value.pause()
       isPlayingAudio.value = false;
     }
   }
 
-
-
   return {
-    audio,
+    audioRef,
     isPlayingAudio,
 
     //methods
     playAudio,
-    pauseAudio
+    pauseAudio,
   }
 }

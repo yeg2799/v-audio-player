@@ -2,11 +2,12 @@
 .v-audio-player
   //- v-audio-player-list
   v-audio-player-control-panel
-  audio(ref="audio" :src="`https://dinlehome.files.wordpress.com/2021/03/kor-official-music-video-kron1k.mp3`" :muted="false" :autoplay="false" id="audio-player" preload="metadata")
+  //- input(type="range")
+  audio(ref="audioRef" :src="activeAudio.source" :muted="false" :autoplay="false")
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, ref, onMounted } from 'vue-demi'
+import { defineComponent, provide} from 'vue-demi'
 import { useRoot, useAudioOperations } from '@/hooks/index.ts'
 // import VAudioPlayerList from '../v-audio-player-list/v-audio-player-list.vue'
 import VAudioPlayerControlPanel from '../v-audio-player-control-panel/v-audio-player-control-panel.vue'
@@ -24,17 +25,17 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const { audio, playAudio, pauseAudio, isPlayingAudio } = useAudioOperations();
-
-    const { setAudioList, audioList } = useRoot()
+    const { audioRef, playAudio, pauseAudio, isPlayingAudio } = useAudioOperations();
+    const { setAudioList, audioList, activeAudio, activeAudioIndex, increaseActiveAudioIndex, decreaseActiveAudioIndex } = useRoot()
 
     setAudioList(props.audioList)
 
-    provide('root', { audioList })
-    provide('operations', { audio, playAudio, pauseAudio, isPlayingAudio })
+    provide('root', { audioList, activeAudio, activeAudioIndex, increaseActiveAudioIndex, decreaseActiveAudioIndex })
+    provide('operations', { audioRef, playAudio, pauseAudio, isPlayingAudio })
 
     return {
-      audio,
+      audioRef,
+      activeAudio,
     }
   }
 })

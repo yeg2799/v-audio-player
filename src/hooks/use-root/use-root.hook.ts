@@ -2,7 +2,8 @@ import { reactive, computed } from 'vue-demi'
 
 export default () => {
   const state = reactive({
-    audioList: []
+    audioList: [],
+    activeAudioIndex: 0,
   })
 
   //Methods
@@ -10,14 +11,39 @@ export default () => {
     state.audioList = audioList
   }
 
+  const increaseActiveAudioIndex = () => {
+    if(state.audioList.length - 1 === state.activeAudioIndex) {
+      state.activeAudioIndex = 0
+
+      return
+    }
+
+    state.activeAudioIndex++;
+  }
+
+  const decreaseActiveAudioIndex = () => {
+    if(state.activeAudioIndex === 0) {
+      return
+    }
+
+    state.activeAudioIndex--;
+  }
+
+
   //Readables
   const audioList = computed(() => state.audioList)
+  const activeAudioIndex = computed(() => state.activeAudioIndex)
+  const activeAudio = computed(() => state.audioList[state.activeAudioIndex])
 
   return {
     //Readables
     audioList,
+    activeAudioIndex,
+    activeAudio,
 
     //Methods
-    setAudioList
+    setAudioList,
+    increaseActiveAudioIndex,
+    decreaseActiveAudioIndex
   }
 }
