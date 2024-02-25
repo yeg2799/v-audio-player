@@ -26,6 +26,12 @@ export default defineComponent({
         artist: 'Ezhel',
         musicName: 'Allahından Bul',
         source: 'https://dinlehome.files.wordpress.com/2020/10/allahindan-bul.mp3'
+      },
+      {
+        poster: 'https://radyonet.net/cdn/sarkilar/717bb54911a7c4f7114be5461b809274.jpg',
+        artist: 'The Marías',
+        musicName: 'Baby One More Time',
+        source: 'https://radyonet.net/cdn/muzik/the-marias-baby-one-more-time-1693394472-12723.m4a'
       }
     ])
 

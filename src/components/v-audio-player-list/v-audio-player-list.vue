@@ -15,8 +15,6 @@ export default defineComponent({
   setup() {
     const { audioList } = inject('root')
 
-    console.log(audioList.value, 'audioList')
-
     return {
       audioList
     }

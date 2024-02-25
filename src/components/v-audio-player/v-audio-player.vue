@@ -2,7 +2,7 @@
 .v-audio-player
   //- v-audio-player-list
   v-audio-player-control-panel
-  //- input(type="range")
+
   audio(ref="audioRef" :src="activeAudio.source" :muted="false" :autoplay="false")
 </template>
 
@@ -25,13 +25,13 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const { audioRef, playAudio, pauseAudio, isPlayingAudio } = useAudioOperations();
+    const { audioRef, soundRef, playAudio, pauseAudio, changeSoundLevel, resetSoundLevel, isPlayingAudio, soundLevel, soundLevelType } = useAudioOperations();
     const { setAudioList, audioList, activeAudio, activeAudioIndex, increaseActiveAudioIndex, decreaseActiveAudioIndex } = useRoot()
 
     setAudioList(props.audioList)
 
     provide('root', { audioList, activeAudio, activeAudioIndex, increaseActiveAudioIndex, decreaseActiveAudioIndex })
-    provide('operations', { audioRef, playAudio, pauseAudio, isPlayingAudio })
+    provide('operations', { audioRef, soundRef, playAudio, pauseAudio, changeSoundLevel, resetSoundLevel, isPlayingAudio, soundLevel, soundLevelType })
 
     return {
       audioRef,
