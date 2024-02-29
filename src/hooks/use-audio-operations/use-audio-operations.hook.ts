@@ -1,63 +1,85 @@
-import { ref, computed } from 'vue-demi'
+import { ref, computed, reactive } from 'vue-demi'
 import { soundLevelTypeEnum } from '@/enums'
 
 export default () => {
+  //Refs
   const audioRef = ref(null);
   const soundRef = ref(null);
-  const isPlayingAudio = ref(false);
-  const soundLevel = ref(50);
+
+  //State
+  const state = reactive({
+    isPlayingAudio: false,
+    soundLevel: 50,
+  })
 
   //Methods
   const playAudio = () => {
     if(audioRef.value) {
-      audioRef.value.volume = soundLevel.value / 100;
+      audioRef.value.volume = state.soundLevel / 100;
       audioRef.value.play()
-      isPlayingAudio.value = true;
+      state.isPlayingAudio = true;
+    }
+  }
+
+  const playSelectedItemAudio = (item) => {
+    if(audioRef.value) {
+      audioRef.value.src = item.source
+      audioRef.value.play()
+      state.isPlayingAudio = true
     }
   }
 
   const pauseAudio = () => {
     if(audioRef.value) {
       audioRef.value.pause()
-      isPlayingAudio.value = false;
+      state.isPlayingAudio = false;
     }
   }
 
   const changeSoundLevel = (event) => {
     if(audioRef.value) {
-      soundLevel.value = Number(event.target.value);
+      state.soundLevel = Number(event.target.value);
       audioRef.value.volume = event.target.value / 100;
     }
   }
 
   const resetSoundLevel = () => {
-    soundLevel.value = 0;
+    state.soundLevel = 0;
   }
 
-  //Readebles
+  //Readables
   const soundLevelType = computed(() => {
-    if(soundLevel.value === 0) {
+    if(state.soundLevel === 0) {
       return soundLevelTypeEnum.SILENT
-    } else if(soundLevel.value <= 33) {
+    } else if(state.soundLevel <= 33) {
       return soundLevelTypeEnum.LOW
-    } else if(soundLevel.value <= 66) {
+    } else if(state.soundLevel <= 66) {
       return soundLevelTypeEnum.MEDIUM
-    } else if(soundLevel.value > 66) {
+    } else if(state.soundLevel > 66) {
       return soundLevelTypeEnum.FULL
     }
   })
 
+  const soundLevel = computed(() => state.soundLevel)
+  const isPlayingAudio = computed(() => state.isPlayingAudio)
+
   return {
-    audioRef,
-    soundRef,
+    //Readables
+    soundLevelType,
     isPlayingAudio,
     soundLevel,
-    soundLevelType,
 
-    //methods
+    //Refs
+    audioRef,
+    soundRef,
+
+    //Methods
     playAudio,
     pauseAudio,
     changeSoundLevel,
     resetSoundLevel,
+    playSelectedItemAudio,
+
+
   }
 }

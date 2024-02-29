@@ -3,6 +3,7 @@
   $color-text: #000;
 
   color: $color-text;
+  width: 250px;
 
   &--active {
     border: 2px solid var(--color-border);

@@ -29,6 +29,10 @@ export default () => {
     state.activeAudioIndex--;
   }
 
+  const setActiveAudioIndex = index => {
+    state.activeAudioIndex = index
+  }
+
 
   //Readables
   const audioList = computed(() => state.audioList)
@@ -44,6 +48,7 @@ export default () => {
     //Methods
     setAudioList,
     increaseActiveAudioIndex,
-    decreaseActiveAudioIndex
+    decreaseActiveAudioIndex,
+    setActiveAudioIndex
   }
 }
