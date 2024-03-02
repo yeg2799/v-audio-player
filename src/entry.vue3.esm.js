@@ -1,5 +1,5 @@
 // Import vue components
-import * as components from './components/index.ts'
+import * as components from './components/index.js'
 // App style entrypoint
 import './assets/style/scss/app.scss'
 
@@ -15,4 +15,4 @@ export default install
 
 // To allow individual component use, export components
 // each can be registered via Vue.component()
-export * from './components/index.ts'
+export * from './components/index.js'

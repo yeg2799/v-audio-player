@@ -1,4 +1,4 @@
-import { SoundLevelTypeEnum } from './sound-level-type.enum.types.js'
+import { SoundLevelTypeEnum } from './sound-level-type.enum.types.ts'
 
 export default Object.freeze({
   SILENT: SoundLevelTypeEnum.SILENT,

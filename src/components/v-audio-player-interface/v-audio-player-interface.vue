@@ -1,25 +1,32 @@
 <template lang="pug">
 .v-audio-player-interface
   span {{ currentTime }}
-  input(ref="audioRangeRef" type="range" min="0" :max="parseTimeToSeconds({ time: totalTime })" :value="parseTimeToSeconds({ time: currentTime })" @input="handleInputEvent")
+  input(
+    ref="audioRangeRef"
+    type="range"
+    min="0"
+    :max="parseTimeToSeconds({ time: totalTime })"
+    :value="parseTimeToSeconds({ time: currentTime })"
+    @input="handleInputEvent"
+  )
   span {{ totalTime }}
 </template>
 
 <script lang="ts">
 import { defineComponent, inject, onMounted, ref } from 'vue-demi'
-import { timeParser } from '@/helpers'
+import { timeParser } from '@/helpers/index.ts'
 
 export default defineComponent({
   name: 'VAudioPlayerInterface',
   setup() {
-    const currentTimeInterval = ref(null);
-    const { parseTimeToSeconds } = timeParser();
+    const currentTimeInterval = ref(null)
+    const { parseTimeToSeconds } = timeParser()
 
-    const {  audioRef, totalTime, currentTime, calculateCurrentAudioTime, isPlayingAudio , updateAudioTime} = inject('operations')
+    const { audioRef, totalTime, currentTime, calculateCurrentAudioTime, isPlayingAudio, updateAudioTime } = inject('operations')
 
     const handleInputEvent = async e => {
       await clearInterval(currentTimeInterval.value)
-      await calculateCurrentAudioTime({ currentSec: e.target.value})
+      await calculateCurrentAudioTime({ currentSec: e.target.value })
       await updateAudioTime({ currentTime: e.target.value })
       setCurrentTime()
     }
@@ -30,10 +37,10 @@ export default defineComponent({
 
     const setCurrentTime = () => {
       currentTimeInterval.value = setInterval(() => {
-        if(isPlayingAudio.value) {
+        if (isPlayingAudio.value) {
           calculateCurrentAudioTime({ currentSec: audioRef.value.currentTime })
         }
-      },1000)
+      }, 1000)
     }
 
     return {

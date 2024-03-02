@@ -47,7 +47,7 @@ const baseConfig = {
       preventAssignment: true
     },
     scss: {
-      fileName: 'vue-plugin-boilerplate.css',
+      fileName: 'vue-audio-player.css',
       sass: sass
     },
     css: {},
@@ -97,7 +97,7 @@ if (!argv.format || argv.format === 'umd') {
         format: 'umd',
         exports: 'named',
         globals,
-        name: 'PluginBoilerplate',
+        name: 'VueAudioPlayer',
         plugins: [
           terser({
             ...baseConfig.plugins.terser
@@ -105,18 +105,18 @@ if (!argv.format || argv.format === 'umd') {
         ]
       },
       {
-        file: `dist/${VUE_DIRNAME}/vue-plugin-boilerplate.umd.js`,
+        file: `dist/${VUE_DIRNAME}/vue-audio-player.umd.js`,
         format: 'umd',
         exports: 'named',
         globals,
-        name: 'PluginBoilerplate'
+        name: 'VueAudioPlayer'
       },
       {
-        file: `dist/${VUE_DIRNAME}/vue-plugin-boilerplate.umd.min.js`,
+        file: `dist/${VUE_DIRNAME}/vue-audio-player.umd.min.js`,
         format: 'umd',
         exports: 'named',
         globals,
-        name: 'PluginBoilerplate',
+        name: 'VueAudioPlayer',
         plugins: [
           terser({
             ...baseConfig.plugins.terser
@@ -124,16 +124,16 @@ if (!argv.format || argv.format === 'umd') {
         ]
       },
       {
-        file: `dist/${VUE_DIRNAME}/vue-plugin-boilerplate.global.js`,
+        file: `dist/${VUE_DIRNAME}/vue-audio-player.global.js`,
         format: 'umd',
         globals,
-        name: 'PluginBoilerplate'
+        name: 'VueAudioPlayer'
       },
       {
-        file: `dist/${VUE_DIRNAME}/vue-plugin-boilerplate.global.min.js`,
+        file: `dist/${VUE_DIRNAME}/vue-audio-player.global.min.js`,
         format: 'umd',
         globals,
-        name: 'PluginBoilerplate',
+        name: 'VueAudioPlayer',
         plugins: [
           terser({
             ...baseConfig.plugins.terser
@@ -179,12 +179,12 @@ if (!argv.format || argv.format === 'es') {
     external,
     output: [
       {
-        file: `dist/${VUE_DIRNAME}/vue-plugin-boilerplate.mjs`,
+        file: `dist/${VUE_DIRNAME}/vue-audio-player.mjs`,
         format: 'esm',
         exports: 'named'
       },
       {
-        file: `dist/${VUE_DIRNAME}/vue-plugin-boilerplate.min.mjs`,
+        file: `dist/${VUE_DIRNAME}/vue-audio-player.min.mjs`,
         format: 'esm',
         exports: 'named',
         plugins: [
@@ -233,17 +233,17 @@ if (!argv.format || argv.format === 'cjs') {
     output: [
       {
         compact: true,
-        file: `dist/${VUE_DIRNAME}/vue-plugin-boilerplate.cjs`,
+        file: `dist/${VUE_DIRNAME}/vue-audio-player.cjs`,
         format: 'cjs',
-        name: 'PluginBoilerplate',
+        name: 'VueAudioPlayer',
         exports: 'named',
         globals
       },
       {
         compact: true,
-        file: `dist/${VUE_DIRNAME}/vue-plugin-boilerplate.min.cjs`,
+        file: `dist/${VUE_DIRNAME}/vue-audio-player.min.cjs`,
         format: 'cjs',
-        name: 'PluginBoilerplate',
+        name: 'VueAudioPlayer',
         exports: 'named',
         globals,
         plugins: [
@@ -286,13 +286,13 @@ buildFormats.push(typesConfig)
 
 // Base style minifier
 const baseStyleMinifierConfig = {
-  input: `dist/${VUE_DIRNAME}/vue-plugin-boilerplate.css`,
+  input: `dist/${VUE_DIRNAME}/vue-audio-player.css`,
   output: {
-    file: `./dist/${VUE_DIRNAME}/vue-plugin-boilerplate.min.css`
+    file: `./dist/${VUE_DIRNAME}/vue-audio-player.min.css`
   },
   plugins: [
     scss({
-      fileName: `vue-plugin-boilerplate.min.css`,
+      fileName: `vue-audio-player.min.css`,
       sass: sass,
       outputStyle: 'compressed'
     })

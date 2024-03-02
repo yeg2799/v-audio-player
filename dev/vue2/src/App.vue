@@ -5,7 +5,8 @@
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue-demi'
-import { VAudioPlayer } from '../../../src/components/index'
+// @ts-ignore
+import { VAudioPlayer } from '../../../src/components'
 
 export default defineComponent({
   components: {

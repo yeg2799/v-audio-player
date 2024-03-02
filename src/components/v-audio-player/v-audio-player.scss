@@ -2,8 +2,8 @@
   --color-border: #222;
   $color-text: #000;
 
-  color: $color-text;
   width: 250px;
+  color: $color-text;
 
   &--active {
     border: 2px solid var(--color-border);

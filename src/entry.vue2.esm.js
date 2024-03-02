@@ -1,5 +1,5 @@
 // Import vue component
-import * as components from './components/index.ts'
+import * as components from './components/index.js'
 // App style entrypoint
 import './assets/style/scss/app.scss'
 

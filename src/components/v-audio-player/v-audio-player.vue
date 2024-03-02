@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, onMounted} from 'vue-demi'
+import { defineComponent, provide, onMounted } from 'vue-demi'
 import { useRoot, useAudioOperations } from '@/hooks/index.ts'
 import VAudioPlayerList from '../v-audio-player-list/v-audio-player-list.vue'
 import VAudioPlayerControlPanel from '../v-audio-player-control-panel/v-audio-player-control-panel.vue'
@@ -26,30 +26,71 @@ export default defineComponent({
     audioList: {
       type: Array,
       required: true
-    },
+    }
     // config: {
     //   type: Object,
     //   required: true
     // }
   },
   setup(props) {
-    const { audioRef, soundRef, playAudio, playSelectedItemAudio,  pauseAudio, changeSoundLevel, resetSoundLevel, isPlayingAudio, soundLevel, soundLevelType, calculateTotalAudioTime, calculateCurrentAudioTime, totalTime, currentTime, updateAudioTime } = useAudioOperations();
-    const { setAudioList, audioList, activeAudio, activeAudioIndex, increaseActiveAudioIndex, decreaseActiveAudioIndex, setActiveAudioIndex } = useRoot()
+    const {
+      audioRef,
+      soundRef,
+      playAudio,
+      playSelectedItemAudio,
+      pauseAudio,
+      changeSoundLevel,
+      resetSoundLevel,
+      isPlayingAudio,
+      soundLevel,
+      soundLevelType,
+      calculateTotalAudioTime,
+      calculateCurrentAudioTime,
+      totalTime,
+      currentTime,
+      updateAudioTime
+    } = useAudioOperations()
+
+    const {
+      setAudioList,
+      audioList,
+      activeAudio,
+      activeAudioIndex,
+      increaseActiveAudioIndex,
+      decreaseActiveAudioIndex,
+      setActiveAudioIndex
+    } = useRoot()
 
     setAudioList(props.audioList)
 
-    onMounted(async() => {
+    onMounted(async () => {
       audioRef.value.addEventListener('loadedmetadata', () => {
         calculateTotalAudioTime({ durationSec: audioRef.value.duration })
       })
     })
 
-    provide('operations', { audioRef, soundRef, playAudio, playSelectedItemAudio, pauseAudio, changeSoundLevel, resetSoundLevel, isPlayingAudio, soundLevel, soundLevelType, calculateTotalAudioTime, calculateCurrentAudioTime, totalTime, currentTime, updateAudioTime })
+    provide('operations', {
+      audioRef,
+      soundRef,
+      playAudio,
+      playSelectedItemAudio,
+      pauseAudio,
+      changeSoundLevel,
+      resetSoundLevel,
+      isPlayingAudio,
+      soundLevel,
+      soundLevelType,
+      calculateTotalAudioTime,
+      calculateCurrentAudioTime,
+      totalTime,
+      currentTime,
+      updateAudioTime
+    })
     provide('root', { audioList, activeAudio, activeAudioIndex, increaseActiveAudioIndex, decreaseActiveAudioIndex, setActiveAudioIndex })
 
     return {
       audioRef,
-      activeAudio,
+      activeAudio
     }
   }
 })

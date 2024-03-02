@@ -3,7 +3,7 @@ import { reactive, computed } from 'vue-demi'
 export default () => {
   const state = reactive({
     audioList: [],
-    activeAudioIndex: 0,
+    activeAudioIndex: 0
   })
 
   //Methods
@@ -12,21 +12,21 @@ export default () => {
   }
 
   const increaseActiveAudioIndex = () => {
-    if(state.audioList.length - 1 === state.activeAudioIndex) {
+    if (state.audioList.length - 1 === state.activeAudioIndex) {
       state.activeAudioIndex = 0
 
       return
     }
 
-    state.activeAudioIndex++;
+    state.activeAudioIndex++
   }
 
   const decreaseActiveAudioIndex = () => {
-    if(state.activeAudioIndex === 0) {
+    if (state.activeAudioIndex === 0) {
       return
     }
 
-    state.activeAudioIndex--;
+    state.activeAudioIndex--
   }
 
   const setActiveAudioIndex = index => {
@@ -48,6 +48,6 @@ export default () => {
     setAudioList,
     increaseActiveAudioIndex,
     decreaseActiveAudioIndex,
-    setActiveAudioIndex,
+    setActiveAudioIndex
   }
 }

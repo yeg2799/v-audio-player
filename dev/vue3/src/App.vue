@@ -4,7 +4,8 @@ VAudioPlayer(:audioList="audioList")
 
 <script setup lang="ts">
 import { ref } from 'vue-demi'
-import { VAudioPlayer } from '../../../src/components/index'
+// @ts-ignore
+import { VAudioPlayer } from '../../../src/components'
 
 const audioList = ref([
   {
