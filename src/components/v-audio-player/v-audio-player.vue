@@ -33,7 +33,7 @@ export default defineComponent({
     // }
   },
   setup(props) {
-    const { audioRef, soundRef, playAudio, playSelectedItemAudio,  pauseAudio, changeSoundLevel, resetSoundLevel, isPlayingAudio, soundLevel, soundLevelType, calculateTotalAudioTime, calculateCurrentAudioTime, totalTime, currentTime } = useAudioOperations();
+    const { audioRef, soundRef, playAudio, playSelectedItemAudio,  pauseAudio, changeSoundLevel, resetSoundLevel, isPlayingAudio, soundLevel, soundLevelType, calculateTotalAudioTime, calculateCurrentAudioTime, totalTime, currentTime, updateAudioTime } = useAudioOperations();
     const { setAudioList, audioList, activeAudio, activeAudioIndex, increaseActiveAudioIndex, decreaseActiveAudioIndex, setActiveAudioIndex } = useRoot()
 
     setAudioList(props.audioList)
@@ -44,7 +44,7 @@ export default defineComponent({
       })
     })
 
-    provide('operations', { audioRef, soundRef, playAudio, playSelectedItemAudio, pauseAudio, changeSoundLevel, resetSoundLevel, isPlayingAudio, soundLevel, soundLevelType, calculateTotalAudioTime, calculateCurrentAudioTime, totalTime, currentTime })
+    provide('operations', { audioRef, soundRef, playAudio, playSelectedItemAudio, pauseAudio, changeSoundLevel, resetSoundLevel, isPlayingAudio, soundLevel, soundLevelType, calculateTotalAudioTime, calculateCurrentAudioTime, totalTime, currentTime, updateAudioTime })
     provide('root', { audioList, activeAudio, activeAudioIndex, increaseActiveAudioIndex, decreaseActiveAudioIndex, setActiveAudioIndex })
 
     return {

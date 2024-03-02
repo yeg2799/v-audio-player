@@ -1,7 +1,8 @@
 import { ref, computed, reactive, nextTick } from 'vue-demi'
 import { soundLevelTypeEnum } from '@/enums'
-
+import { timeParser } from '@/helpers'
 export default () => {
+  const { parseTimeMinAndSec } = timeParser();
   //Refs
   const audioRef = ref(null);
   const soundRef = ref(null);
@@ -49,25 +50,16 @@ export default () => {
     state.soundLevel = 0;
   }
 
-  const parseTimeMinAndSec = ({ sec }) => {
-
-    const minutes = Math.floor(sec / 60);
-    const seconds = Math.round(sec % 60);
-
-    // Dakika ve saniye değerlerini iki basamaklı olarak formatlayın
-    const formattedMinutes = minutes.toString().padStart(2, '0');
-    const formattedSeconds = seconds.toString().padStart(2, '0');
-
-    // MM:SS formatında birleştirip döndür
-    return  `${formattedMinutes}:${formattedSeconds}`;
-  };
-
   const calculateTotalAudioTime = ({ durationSec }) => {
     state.totalTime = parseTimeMinAndSec({ sec: durationSec })
   }
 
   const calculateCurrentAudioTime = ({ currentSec }) => {
     state.currentTime = parseTimeMinAndSec({ sec: currentSec })
+  }
+
+  const updateAudioTime = ({ currentTime }) => {
+    audioRef.value.currentTime = currentTime;
   }
 
   //Readables
@@ -107,8 +99,7 @@ export default () => {
     resetSoundLevel,
     playSelectedItemAudio,
     calculateTotalAudioTime,
-    calculateCurrentAudioTime
-
-
+    calculateCurrentAudioTime,
+    updateAudioTime,
   }
 }
