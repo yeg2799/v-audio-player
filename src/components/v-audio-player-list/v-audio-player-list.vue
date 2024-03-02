@@ -1,7 +1,7 @@
 <template lang="pug">
 .v-audio-player-list
-  template(v-for="(item, index) in audioList" )
-    .v-audio-player-list__item(:key="index" :class="[activeItemClass(index), nextItemClass(index), prevItemClass(index)]" @click="handleClickEvent(item, index)")
+  template(v-for="(item, index) in audioList")
+    .v-audio-player-list__item(:class="[activeItemClass(index), nextItemClass(index), prevItemClass(index)]" @click="handleClickEvent(item, index)")
       .v-audio-player-list__item-poster
         img(:src="item.poster")
       .v-audio-player-list__item-artist
