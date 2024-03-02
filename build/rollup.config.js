@@ -10,6 +10,7 @@ import css from 'rollup-plugin-css-only'
 import { terser } from 'rollup-plugin-terser'
 import dts from 'rollup-plugin-dts'
 import minimist from 'minimist'
+import svg from 'rollup-plugin-svg'
 
 const argv = minimist(process.argv.slice(2))
 const VUE_VERSION = process.env.VUE_VERSION
@@ -39,7 +40,8 @@ const baseConfig = {
         entries: {
           '@': path.resolve(__dirname, '../src')
         }
-      })
+      }),
+      svg()
     ],
     replace: {
       'process.env.NODE_ENV': JSON.stringify('production'),
