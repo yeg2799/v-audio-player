@@ -1,6 +1,10 @@
 import { ref, computed, reactive } from 'vue-demi'
+import type { ComputedRef } from 'vue-demi'
 import { soundLevelTypeEnum } from '@/enums/index.ts'
 import { timeParser } from '@/helpers/index.ts'
+import { StateTypes, SetAudioPlayerConfig } from './use-audio-operations.hook.types'
+import { AUDIO_PLAYER_CONFIG_DEFAULT } from '../../../system/default.ts'
+import type { AudioPlayerConfig } from '@/types'
 
 export default () => {
   const { parseTimeMinAndSec } = timeParser()
@@ -9,17 +13,24 @@ export default () => {
   const soundRef = ref(null)
 
   //State
-  const state = reactive({
+  const state = reactive(<StateTypes>{
     isPlayingAudio: false,
-    soundLevel: 50,
     totalTime: 0,
-    currentTime: 0
+    currentTime: 0,
+
+    //default
+    config: AUDIO_PLAYER_CONFIG_DEFAULT
   })
 
   //Methods
+  const setAudioConfig: SetAudioPlayerConfig = config => {
+    state.config = config
+    console.log(state.config, 'state')
+  }
+
   const playAudio = () => {
     if (audioRef.value) {
-      audioRef.value.volume = state.soundLevel / 100
+      audioRef.value.volume = state.config.volume / 100
       audioRef.value.play()
       state.isPlayingAudio = true
     }
@@ -42,13 +53,13 @@ export default () => {
 
   const changeSoundLevel = event => {
     if (audioRef.value) {
-      state.soundLevel = Number(event.target.value)
+      state.config.volume = Number(event.target.value)
       audioRef.value.volume = event.target.value / 100
     }
   }
 
   const resetSoundLevel = () => {
-    state.soundLevel = 0
+    state.config.volume = 0
   }
 
   const calculateTotalAudioTime = ({ durationSec }) => {
@@ -65,24 +76,26 @@ export default () => {
 
   //Readables
   const soundLevelType = computed(() => {
-    if (state.soundLevel === 0) {
+    if (state.config.volume === 0) {
       return soundLevelTypeEnum.SILENT
-    } else if (state.soundLevel <= 33) {
+    } else if (state.config.volume <= 33) {
       return soundLevelTypeEnum.LOW
-    } else if (state.soundLevel <= 66) {
+    } else if (state.config.volume <= 66) {
       return soundLevelTypeEnum.MEDIUM
-    } else if (state.soundLevel > 66) {
+    } else if (state.config.volume > 66) {
       return soundLevelTypeEnum.FULL
     }
   })
 
-  const soundLevel = computed(() => state.soundLevel)
-  const isPlayingAudio = computed(() => state.isPlayingAudio)
+  const config: ComputedRef<AudioPlayerConfig> = computed(() => state.config)
+  const soundLevel: ComputedRef<AudioPlayerConfig['volume']> = computed(() => state.config.volume)
+  const isPlayingAudio: ComputedRef<StateTypes['isPlayingAudio']> = computed(() => state.isPlayingAudio)
   const totalTime = computed(() => (state.totalTime === 0 ? '00:00' : state.totalTime))
   const currentTime = computed(() => (state.currentTime === 0 ? '00:00' : state.currentTime))
 
   return {
     //Readables
+    config,
     soundLevelType,
     isPlayingAudio,
     soundLevel,
@@ -94,6 +107,7 @@ export default () => {
     soundRef,
 
     //Methods
+    setAudioConfig,
     playAudio,
     pauseAudio,
     changeSoundLevel,

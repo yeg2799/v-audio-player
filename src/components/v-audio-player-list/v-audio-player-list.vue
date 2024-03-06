@@ -6,12 +6,12 @@
     :class="[activeItemClass(index), nextItemClass(index), prevItemClass(index)]"
     @click="handleClickEvent(item, index)"
   )
-    .v-audio-player-list__item-poster
+    .v-audio-player-list__item-poster(v-if="item.poster")
       img(:src="item.poster")
     .v-audio-player-list__item-artist
-      .v-audio-player-list__item-artist-name
-        span {{ item.artist }}
-      .v-audio-player-list__item-art
+      .v-audio-player-list__item-artist-name(v-if="item.artistName")
+        span {{ item.artistName }}
+      .v-audio-player-list__item-art(v-if="item.musicName")
         span {{ item.musicName }}
 </template>
 

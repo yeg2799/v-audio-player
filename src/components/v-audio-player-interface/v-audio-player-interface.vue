@@ -22,7 +22,7 @@ export default defineComponent({
     const currentTimeInterval = ref(null)
     const { parseTimeToSeconds } = timeParser()
 
-    const { audioRef, totalTime, currentTime, calculateCurrentAudioTime, isPlayingAudio, updateAudioTime } = inject('operations')
+    const { audioRef, config, totalTime, currentTime, calculateCurrentAudioTime, isPlayingAudio, updateAudioTime } = inject('operations')
 
     const handleInputEvent = async e => {
       await clearInterval(currentTimeInterval.value)
@@ -32,6 +32,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
+      console.log(config.value)
       setCurrentTime()
     })
 

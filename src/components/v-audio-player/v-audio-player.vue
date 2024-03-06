@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, onMounted } from 'vue-demi'
+import { defineComponent, provide, onMounted, watch } from 'vue-demi'
 import { useRoot, useAudioOperations } from '@/hooks/index.ts'
 import VAudioPlayerList from '../v-audio-player-list/v-audio-player-list.vue'
 import VAudioPlayerControlPanel from '../v-audio-player-control-panel/v-audio-player-control-panel.vue'
@@ -23,17 +23,15 @@ export default defineComponent({
     VAudioPlayerInterface
   },
   props: {
-    audioList: {
-      type: Array,
+    vuePlayer: {
+      type: Object,
       required: true
     }
-    // config: {
-    //   type: Object,
-    //   required: true
-    // }
   },
-  setup(props) {
+  setup(props, { emit }) {
     const {
+      setAudioConfig,
+      config,
       audioRef,
       soundRef,
       playAudio,
@@ -61,15 +59,17 @@ export default defineComponent({
       setActiveAudioIndex
     } = useRoot()
 
-    setAudioList(props.audioList)
+    setAudioList(props.vuePlayer.audioList)
+    setAudioConfig(props.vuePlayer.config)
 
-    onMounted(async () => {
+    onMounted(() => {
       audioRef.value.addEventListener('loadedmetadata', () => {
         calculateTotalAudioTime({ durationSec: audioRef.value.duration })
       })
     })
 
     provide('operations', {
+      config,
       audioRef,
       soundRef,
       playAudio,
@@ -86,7 +86,22 @@ export default defineComponent({
       currentTime,
       updateAudioTime
     })
-    provide('root', { audioList, activeAudio, activeAudioIndex, increaseActiveAudioIndex, decreaseActiveAudioIndex, setActiveAudioIndex })
+    provide('root', {
+      audioList,
+      activeAudio,
+      activeAudioIndex,
+      increaseActiveAudioIndex,
+      decreaseActiveAudioIndex,
+      setActiveAudioIndex
+    })
+
+    watch(isPlayingAudio, item => {
+      if (item) {
+        emit('on-played')
+      } else {
+        emit('on-paused')
+      }
+    })
 
     return {
       audioRef,

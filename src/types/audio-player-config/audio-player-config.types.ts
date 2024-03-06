@@ -1,7 +1,11 @@
-interface audioPlayerControlConfig {
-  autoplay?: Boolean
+interface AudioPlayerControlConfig {
+  prev?: Boolean
+  next?: Boolean
 }
 
-export interface audioPlayerConfig {
+export interface AudioPlayerConfig {
+  muted?: Boolean
   autoplay?: Boolean
+  volume?: Number
+  controls?: AudioPlayerControlConfig
 }
