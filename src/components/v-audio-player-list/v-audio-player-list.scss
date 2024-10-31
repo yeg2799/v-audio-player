@@ -28,5 +28,10 @@
         margin-bottom: 2px;
       }
     }
+
+    &--active {
+      background-color: #197c14;
+      border-radius: 5px;
+    }
   }
 }

@@ -18,17 +18,34 @@
 <script lang="ts">
 import { defineComponent, inject } from 'vue-demi'
 
+// Add interface for audio item
+interface AudioItem {
+  poster?: string
+  artistName?: string
+  musicName?: string
+  [key: string]: any // for other potential properties
+}
+
 export default defineComponent({
   name: 'VAudioPlayerList',
   setup() {
-    const { audioList, activeAudioIndex, setActiveAudioIndex } = inject('root')
-    const { playSelectedItemAudio, isPlayingAudio, pauseAudio } = inject('operations')
+    const { audioList, activeAudioIndex, setActiveAudioIndex } = inject('root') as {
+      audioList: { value: AudioItem[] }
+      activeAudioIndex: { value: number }
+      setActiveAudioIndex: (index: number) => Promise<void>
+    }
 
-    const activeItemClass = index => {
+    const { playSelectedItemAudio, isPlayingAudio, pauseAudio } = inject('operations') as {
+      playSelectedItemAudio: (item: AudioItem) => void
+      isPlayingAudio: { value: boolean }
+      pauseAudio: () => void
+    }
+
+    const activeItemClass = (index: number) => {
       return { 'v-audio-player-list__item--active': index === activeAudioIndex.value }
     }
 
-    const nextItemClass = index => {
+    const nextItemClass = (index: number) => {
       if (audioList.value.length - 1 === activeAudioIndex.value) {
         return { 'v-audio-player-list__item--next': index === 0 }
       }
@@ -36,7 +53,7 @@ export default defineComponent({
       return { 'v-audio-player-list__item--next': index === activeAudioIndex.value + 1 }
     }
 
-    const prevItemClass = index => {
+    const prevItemClass = (index: number) => {
       if (activeAudioIndex.value === 0) {
         return { 'v-audio-player-list__item--prev': index === audioList.value.length - 1 }
       }
@@ -44,7 +61,7 @@ export default defineComponent({
       return { 'v-audio-player-list__item--prev': index === activeAudioIndex.value - 1 }
     }
 
-    const handleClickEvent = async (item, index) => {
+    const handleClickEvent = async (item: AudioItem, index: number) => {
       if (index === activeAudioIndex.value && isPlayingAudio.value) {
         pauseAudio()
 
